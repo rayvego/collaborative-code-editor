@@ -1,4 +1,3 @@
-// models/User.ts
 import mongoose, { Document, Model, Schema } from "mongoose";
 
 export interface UserDocument extends Document {

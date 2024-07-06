@@ -1,6 +1,9 @@
 import mongoose, { Mongoose } from "mongoose";
+// mongoose is the main mongoose library to connect to the db
+// Mongoose is the TypeScript type of the mongoose library that helps us define the type of the mongoose object
 
 const MONGODB_URI = process.env.MONGODB_URI as string;
+// specifically telling TypeScript that MONGODB_URI is a string
 
 if (!MONGODB_URI) {
   throw new Error("Please define the MONGODB_URI environment variable inside .env");
@@ -12,15 +15,20 @@ if (!MONGODB_URI) {
  * during API Route usage.
  */
 
+// this defines the type of the cached object
 interface Cached {
   conn: Mongoose | null;
   promise: Promise<Mongoose> | null;
 }
 
+// this tells TypeScript that we are adding a new property to the global object
+// this doesn't mean we can access the global object from anywhere in the code
+// it just means that this variables hold its value across hot reloads
 declare global {
   var mongoose: Cached;
 }
 
+// setting the cached object to the mongoose property of the global object
 let cached: Cached = global.mongoose;
 
 if (!cached) {
