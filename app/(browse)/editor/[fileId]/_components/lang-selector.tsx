@@ -15,20 +15,18 @@ export const LanguageSelector = ({ language, onSelect }: LanguageSelectorProps) 
       </label>
       <Popover>
         <PopoverTrigger asChild>
-          <Button variant="outline" className="w-full justify-between" id="language">
+          <Button variant="outline" className="justify-between" id="language">
             {language}
           </Button>
         </PopoverTrigger>
-        <PopoverContent className="w-40 bg-gray-900 text-white">
+        <PopoverContent className="">
           {Object.entries(LANGUAGE_VERSIONS).map(([lang, version]) => (
             <div
               key={lang}
               onClick={() => onSelect(lang)}
-              className={`cursor-pointer px-4 py-2 hover:bg-gray-800 ${
-                lang === language ? "bg-gray-800 text-red-400" : ""
-              }`}
+              className={`cursor-pointer px-4 py-2 hover:bg-gray-200 rounded-xl transition-colors ${lang === language ? "bg-gray-200" : ""}`}
             >
-              {lang} <span className="text-gray-600 text-sm">({version})</span>
+              {lang} <span className="text-muted-foreground text-sm">({version})</span>
             </div>
           ))}
         </PopoverContent>

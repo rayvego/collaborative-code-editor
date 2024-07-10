@@ -1,25 +1,25 @@
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
-// import { useToast } from "@/components/ui/use-toast";
 
 interface OutputProps {
   editorRef: React.RefObject<any>;
   language: string;
 }
 
-const Output: React.FC<OutputProps> = ({ editorRef, language }) => {
-  // const { toast } = useToast();
+const Output = ({ editorRef, language }: OutputProps) => {
+  // states to store the output, loading state, and error state
   const [output, setOutput] = useState<string[]>();
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
 
+  // function to run the code
   const runCode = async () => {
     // we get the code in the editor using refs... we had set the ref in the code editor component
     const sourceCode = editorRef.current?.getValue();
     if (!sourceCode) return;
 
     try {
-      // sending the code to the server to execute
+      // sending the code to the execute API to run it
       // (this is how to make a POST request in Next.js through another file)
       const response = await fetch("/api/execute", {
         method: "POST",
@@ -31,20 +31,13 @@ const Output: React.FC<OutputProps> = ({ editorRef, language }) => {
       if (!response.ok) {
         throw new Error("Failed to execute code");
       }
-      // console.log(response);
 
       const { run: result } = await response.json();
-
       setOutput(result.output.split("\n"));
-
       result.stderr ? setIsError(true) : setIsError(false);
     } catch (error) {
       console.error(error);
-      // toast({
-      //   title: "An error occurred.",
-      //   description: "Unable to run code. Please try again.",
-      //   variant: "destructive",
-      // });
+      setIsError(true);
     } finally {
       setIsLoading(false);
     }

@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { LANGUAGE_VERSIONS } from "@/lib/constants";
 
 export async function POST(req: NextRequest) {
+  // get the language and source code from the request body
   const { language, sourceCode } = await req.json();
 
   try {
@@ -24,6 +25,6 @@ export async function POST(req: NextRequest) {
     return NextResponse.json(data);
   } catch (error: any) {
     console.error("Code execution error:", error);
-    return NextResponse.json({ error: error.message }, { status: 500 }); // Internal Server Error
+    return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }

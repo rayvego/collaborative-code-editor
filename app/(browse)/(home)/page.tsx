@@ -1,7 +1,6 @@
-import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { auth, currentUser } from "@clerk/nextjs/server";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
 
 export default async function Home() {
@@ -20,7 +19,7 @@ export default async function Home() {
             <CardDescription>Create a new file</CardDescription>
           </CardHeader>
           <div className={"flex items-center flex-col "}>
-            <Link href={`/${user?.username}/editor`}>
+            <Link href={`/dashboard/${user?.id}/editor`}>
               <Button>Go to Editor</Button>
             </Link>
           </div>

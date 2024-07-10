@@ -1,7 +1,7 @@
 import mongoose, { Document, Model, Schema } from "mongoose";
 
 export interface FileDocument extends Document {
-  user_id: mongoose.Types.ObjectId;
+  externalUserId: string;
   file_name: string;
   file_content: string;
   createdAt: Date;
@@ -9,9 +9,8 @@ export interface FileDocument extends Document {
 }
 
 const FileSchema: Schema<FileDocument> = new mongoose.Schema({
-  user_id: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
+  externalUserId: {
+    type: String,
     required: true,
   },
   file_name: {
@@ -20,7 +19,6 @@ const FileSchema: Schema<FileDocument> = new mongoose.Schema({
   },
   file_content: {
     type: String,
-    required: true,
   },
   createdAt: {
     type: Date,
